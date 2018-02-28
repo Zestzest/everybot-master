@@ -1,0 +1,22 @@
+{
+	"name": "everybot",
+	"version": "1.0.0",
+	"description": "",
+	"main": "everybot.js",
+	"scripts": {
+		"start": "node everybot.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"ai-chatbot": "^1.1.4",
+		"discord.js": "^11.3.0",
+		"jsonfile": "^4.0.0"
+	}
+	{
+  "main": "player.js",
+  "dependencies": {
+    "youtube-dl": "^1.11.1"
+  }
+}
+}
