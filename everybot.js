@@ -114,6 +114,19 @@ client.on("message", async message => {
 			})
 		};
 
+	if(command === "ping") {
+    const m = await message.channel.send("Ping?");
+    m.edit(`What do you want me to say? Pong? or do you want the ping? well here it is! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
+  }
+
+	if (command === "kick") {
+		if (!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("You don't have permissions to do that.")
+		if (!message.guild.member(client.user).hasPermission("KICK_MEMBERS")) return message.reply("I don't have permissions to do that.")
+		let user = message.mentions.users.first();
+		let reason = rawArgs.split(" ").slice(1).join(" ").trim(); // rawArgs here prevents the loss of whitespace information.
+		let modlog = client.channels.find("name", "mod-log");
+
+
 		// Makes the bot invisible
 		// Format: [prefix]shoo
 		if (command === "shoo") {
@@ -287,5 +300,6 @@ client.on("message", async message => {
 		message.channel.send("(favoritos, favoritos baby)Déjame sobrepasar tus zonas de peligro Hasta provocar tus gritos Y que olvides tu apellido (Diridiri, dirididi Daddy)Si te pido un beso ven dámelo Yo sé que estás pensándolo Llevo tiempo intentándolo Mami, esto es dando y dándolo Sabes que tu corazón conmigo te hace bom, bom Sabes que esa beba está buscando de mi bom, bom Ven prueba de mi boca para ver cómo te sabe Quiero, quiero, quiero ver cuánto amor a ti te cabe Yo no tengo prisa, yo me quiero dar el viaje Empecemos lento, después salvajePasito a pasito, suave suavecito Nos vamos pegando poquito a poquito Cuando tú me besas con esa destreza Veo que eres malicia con delicadeza Pasito a pasito, ")
 		message.channel.send("suave suavecito Nos vamos pegando, poquito a poquito Y es que esa belleza es un rompecabezas Pero pa montarlo aquí tengo la pieza Despacito Quiero respirar tu cuello despacito Deja que te diga cosas al oído Para que te acuerdes si no estás conmigo Despacito Quiero desnudarte a besos despacito Firmo en las paredes de tu laberinto Y hacer de tu cuerpo todo un manuscrito (sube, sube, sube)(Sube, sube)Quiero ver bailar tu pelo Quiero ser tu ritmo Que le enseñes a mi boca Tus lugares favoritos (favoritos, favoritos baby)Déjame sobrepasar tus zonas de peligro Hasta provocar tus gritos Y que olvides tu apellido Despacito Vamos a hacerlo en una playa en Puerto Rico Hasta que las olas griten ¡ay, bendito! Para que mi sello se quede contigo Pasito a pasito, suave suavecito Nos vamos pegando, poquito a poquito Que le enseñes a mi boca Tus lugares favoritos (favoritos, favoritos baby)Pasito a pasito, suave suavecito Nos vamos pegando, poquito a poquito Hasta provocar tus gritos Y que olvides tu apellido (DY)Despacito")
 	}
+
 });
 client.login(config.creds.discord.token);
