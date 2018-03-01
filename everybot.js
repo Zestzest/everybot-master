@@ -10,8 +10,6 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-// Listeners:
-
 client.on("ready", () => {
 	console.clear();
 	console.log(`Success: ${client.user.username} is now connected.\nGuilds: ${client.guilds.size}\nChannels: ${client.channels.size}\nUsers: ${client.users.size}\n`);
@@ -229,21 +227,22 @@ client.on("message", async message => {
 
 	}
 
-	if (command === 'dar') {
+	if (command === 'addrole') {
+		console.log(args[1]);
         if (!message.member.roles.some(r => ["Admin", "Staff"].includes(r.name)))
             return message.reply("Sorry, you don't have permissions to use this!");
-        let user = message.mentions.users.first();
-        let role = message.content.split(" ").slice(2).join(" ");
-        let modlog = client.channels.find("name", "mod-log");
-        if (!modlog) return message.reply("There is no mod-log channel.")
-        if (message.mentions.users.size < 1) return message.reply("Please define a user for me to role");
-        message.guild.member(user).role;
-        message.reply("I gave a role to someone", `${user.tag}\n*Role:* ${role}`);
-            user.setAuthor(`I gave a role to ${user.username}`, user.displayAvatarURL)
-            user.addField("Role Information", `*Roled User:* ${user.tag}\n*Moderator:* ${message.author.tag}`);
-        modlog.send({
-            embed: role
-        })
+        let user = message.mentions.members.first();
+		let role = message.member.guild.roles.find('name', args[1]);
+		if (args[2]) args[1] = .join(args[1], args[2])
+		if (message.mentions.members.size < 1) return message.reply("Please define a user for me to role");
+		user.addRole(role);
+		message.reply(`I have given the role, ${role.name}, to ${user.displayName}`);
+	}
+	if (command === 'member') {
+        let user = message.mentions.members.first();
+		let role = ('name', args[0]);
+		message.member.addRole(role);
+		message.reply(`I have given the role, ${role.name}, to ${user.displayName}`);
 	}
 });
 client.login(config.creds.discord.token);
