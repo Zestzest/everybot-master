@@ -232,17 +232,16 @@ client.on("message", async message => {
         if (!message.member.roles.some(r => ["Admin", "Staff"].includes(r.name)))
             return message.reply("Sorry, you don't have permissions to use this!");
         let user = message.mentions.members.first();
+		if (args[2]) args[1] = args.slice(1).join(" ")
 		let role = message.member.guild.roles.find('name', args[1]);
-		if (args[2]) args[1] = .join(args[1], args[2])
 		if (message.mentions.members.size < 1) return message.reply("Please define a user for me to role");
 		user.addRole(role);
 		message.reply(`I have given the role, ${role.name}, to ${user.displayName}`);
 	}
 	if (command === 'member') {
-        let user = message.mentions.members.first();
-		let role = ('name', args[0]);
+		let role = message.member.guild.roles.find('name', 'Member');
 		message.member.addRole(role);
-		message.reply(`I have given the role, ${role.name}, to ${user.displayName}`);
+		message.reply(`I have given the role, ${role.name}, to ${message.member.displayName}`);
 	}
 });
 client.login(config.creds.discord.token);
