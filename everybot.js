@@ -70,7 +70,7 @@ client.on("message", async message => {
 			if (!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("You don't have permissions to do that.")
 			if (!message.guild.member(client.user).hasPermission("KICK_MEMBERS")) return message.reply("I don't have permissions to do that.")
 			let user = message.mentions.users.first();
-			let reason = message.content.split(" ").slice(2).join(" "); // TODO use rawArgs here instead
+			let reason = rawArgs.split(" ").slice(1).join(" ").trim(); // rawArgs here prevents the loss of whitespace information.
 			let modlog = client.channels.find("name", "mod-log");
 
 			if (!modlog) return message.reply("There is no mod-log channel.")
@@ -214,7 +214,7 @@ client.on("message", async message => {
 		// Makes the bot say a message
 		// Format: [prefix]say [message]
 		if (command === "say") {
-			const sayMessage = args.join(" "); // TODO: replace RHS with rawArgs
+			const sayMessage = rawArgs;
 			message.delete().catch(O_o => {});
 			message.channel.send(sayMessage);
 			let modlog = client.channels.find("name", "mod-log");
