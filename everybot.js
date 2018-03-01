@@ -57,12 +57,11 @@ client.on("message", async message => {
 
 		// Tests the ping
 		// Format: [prefix]ping
-		if (command === "ping") {
-			let m = await message.channel.send(`What do you want me to say? The ping? here yah go! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
-			console.log(`Latency is: ${Math.round(client.ping)}ms`);
-			let ava = client.guilds.find('name', config.sname).available;
-			console.log(`Server available: ${ava}`);
+		if(command === "ping") {
+		  const m = await message.channel.send("Ping?");
+		  m.edit(`What do you want me to say? Pong? or do you want the ping? well here it is! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
 		}
+
 
 		// Kicks a user, if possible
 		// Format: [prefix]kick [user mention] [reason]
