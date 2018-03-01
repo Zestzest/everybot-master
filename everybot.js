@@ -48,13 +48,10 @@ client.on("message", async message => {
 	let args = message.content.slice(config.prefix.length).trim().split(/ +/g);
 	let command = args.shift().toLowerCase();
 
-	if (command === "ping") {
-		let m = await message.channel.send(`What do you want me to say? The ping? here yah go! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
-		console.log(`Latency is: ${Math.round(client.ping)}ms`);
-		let ava = client.guilds.find('name', config.sname).available;
-		console.log(`Server available: ${ava}`);
-	}
-
+if(command === "ping") {
+    const m = await message.channel.send("Ping?");
+    m.edit(`What do you want me to say? Pong? or do you want the ping? well here it is! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
+  }
 	if (command === "kick") {
 		if (!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("You don't have permissions to do that.")
 		if (!message.guild.member(client.user).hasPermission("KICK_MEMBERS")) return message.reply("I don't have permissions to do that.")
@@ -243,5 +240,6 @@ client.on("message", async message => {
 		message.member.addRole(role);
 		message.reply(`I have given the role, ${role.name}, to ${message.member.displayName}`);
 	}
+
 });
 client.login(config.creds.discord.token);
